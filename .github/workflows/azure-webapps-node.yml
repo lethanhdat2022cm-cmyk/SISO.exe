@@ -1,0 +1,23 @@
+name: Build SISO Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Build Windows App with Pake
+        uses: tw93/Pake@v3
+        with:
+          url: https://netlify.app
+          name: SISO
+          width: 1280
+          height: 800
+          multi-window: true
+
+      - name: Upload Windows Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: SISO-Windows
+          path: output/*
