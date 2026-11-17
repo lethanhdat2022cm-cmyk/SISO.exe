@@ -7,17 +7,23 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - name: Build Windows App with Pake
-        uses: tw93/Pake@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          url: https://soitrangstore.netlify.app/
-          name: SISO
-          width: 1280
-          height: 800
-          multi-window: true
+          node-version: '20'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Pake CLI and Build SISO
+        run: |
+          npm install -g pake-cli
+          pake "https://soitrangstore.netlify.app/" --name SISO --width 1280 --height 800 --multi-window
 
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
         with:
           name: SISO-Windows
-          path: output/*
+          path: |
+            *.msi
+            *.exe
