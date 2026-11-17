@@ -10,7 +10,7 @@ jobs:
       - name: Build Windows App with Pake
         uses: tw93/Pake@v3
         with:
-          url: https://netlify.app
+          url: https://soitrangstore.netlify.app/
           name: SISO
           width: 1280
           height: 800
